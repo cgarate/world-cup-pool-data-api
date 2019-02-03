@@ -4,6 +4,7 @@ import express from "express";
 import graphqlHTTP from "express-graphql";
 import mongoose from "mongoose";
 
+import { graphQLSchema } from "./src/schema/schema";
 import { API_PORT, MONGODB_URI  } from "./src/util/secrets";
 
 dotenv.config({ path: ".env.example" });
@@ -22,7 +23,7 @@ mongoose.connection.once("open", () => {
 
 app.use("/graphql", graphqlHTTP({
   graphiql: true,
-  schema,
+  schema: graphQLSchema,
 }));
 
 app.listen(API_PORT, () => {
