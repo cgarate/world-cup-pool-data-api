@@ -1,6 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "scripthost",
+            "es6",
+            "esnext.asynciterable"
+        ],
         "esModuleInterop": true,
         "target": "es6",
         "noImplicitAny": true,
@@ -11,7 +18,6 @@
         "paths": {
             "*": [
                 "node_modules/*",
-                "src/types/*"
             ]
         }
     },

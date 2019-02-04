@@ -1,15 +1,17 @@
 import cors from "cors";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import express from "express";
 import graphqlHTTP from "express-graphql";
 import mongoose from "mongoose";
 
-import { graphQLSchema } from "./src/schema/schema";
-import { API_PORT, MONGODB_URI  } from "./src/util/secrets";
+import { graphQLSchema } from "./schema/schema";
+import { API_PORT, MONGODB_URI } from "./util/secrets";
 
 dotenv.config({ path: ".env.example" });
 
 const app = express();
+
+app.set("port", API_PORT || 4000);
 
 // Allow cross-domain requests
 app.use(cors());
@@ -21,12 +23,12 @@ mongoose.connection.once("open", () => {
   console.log("Connected to Database");
 });
 
-app.use("/graphql", graphqlHTTP({
-  graphiql: true,
-  schema: graphQLSchema,
-}));
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    graphiql: true,
+    schema: graphQLSchema,
+  }),
+);
 
-app.listen(API_PORT, () => {
-  /* tslint:disable:no-console */
-  console.log(`Listening on port ${API_PORT}`);
-});
+export default app;
